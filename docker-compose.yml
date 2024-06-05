@@ -1,0 +1,32 @@
+services:
+  modjo-postgres:
+    image: postgres
+    restart: always
+    container_name: modjo-postgres
+    volumes:
+      - /data/postgres:/data/postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - postgres
+    env_file:
+      - docker.env
+
+  modjo-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: api
+    container_name: modjo-api
+    env_file:
+      - .env
+    ports:
+      - '3000:3000'
+    depends_on:
+      - modjo-postgres
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
