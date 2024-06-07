@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { join } from 'path';
 
 class ConfigService {
     constructor(private env: { [k: string]: string | undefined }) {}
@@ -26,7 +27,9 @@ class ConfigService {
             username: this.getValue('POSTGRES_USER'),
             password: this.getValue('POSTGRES_PASSWORD'),
             database: this.getValue('POSTGRES_DATABASE'),
-            entities: ['**/*.entity{.ts,.js}'],
+            entities: [join(__dirname, '/../src/modules/**/*.entity.{js,ts}')],
+            synchronize: true,
+            logging: false,
         };
     }
 }
