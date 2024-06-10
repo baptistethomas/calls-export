@@ -15,6 +15,7 @@ import { EMeetingType } from './enumerator/meeting-type.enum';
 import { EMeetingVideoProvider } from './enumerator/meeting-video-provider.enum';
 import { IMeetingSummary } from './interface/meeting-summary.interface';
 import { EMeetingDirection } from './enumerator/meeting-direction.enum';
+import { Record } from '../record/record.entity';
 
 @Entity('meetings')
 export class Meeting extends BaseEntity {
@@ -25,6 +26,10 @@ export class Meeting extends BaseEntity {
     @OneToOne(() => Seller, { cascade: true })
     @JoinColumn([{ name: 'seller_id', referencedColumnName: 'id' }])
     public seller: Seller;
+
+    @OneToOne(() => Record, { cascade: true })
+    @JoinColumn([{ name: 'record_id', referencedColumnName: 'id' }])
+    public record: Record;
 
     @PrimaryGeneratedColumn()
     public id: number;

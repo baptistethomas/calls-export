@@ -1,19 +1,7 @@
-import {
-    BaseEntity,
-    Column,
-    Entity,
-    JoinColumn,
-    OneToOne,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Company } from '../company/company.entity';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('sellers')
 export class Seller extends BaseEntity {
-    @OneToOne(() => Company, { cascade: true })
-    @JoinColumn([{ name: 'company_id', referencedColumnName: 'id' }])
-    public company: Company;
-
     @PrimaryGeneratedColumn()
     public id: number;
 
