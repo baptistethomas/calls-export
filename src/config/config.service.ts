@@ -1,5 +1,5 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
+import { DataSourceOptions } from 'typeorm';
 
 class ConfigService {
     constructor(private env: { [k: string]: string | undefined }) {}
@@ -19,7 +19,7 @@ class ConfigService {
         return this.getValue('PORT', true);
     }
 
-    public getTypeOrmConfig(): TypeOrmModuleOptions {
+    public getTypeOrmConfig(): DataSourceOptions {
         return {
             type: 'postgres',
             host: this.getValue('POSTGRES_HOST'),
@@ -27,7 +27,7 @@ class ConfigService {
             username: this.getValue('POSTGRES_USER'),
             password: this.getValue('POSTGRES_PASSWORD'),
             database: this.getValue('POSTGRES_DATABASE'),
-            entities: [join(__dirname, '/../src/modules/**/*.entity.{js,ts}')],
+            entities: [join(__dirname, '/../modules/**/*.entity.{js,ts}')],
             synchronize: true,
             logging: false,
         };

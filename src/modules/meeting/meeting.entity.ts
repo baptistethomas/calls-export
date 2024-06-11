@@ -19,8 +19,8 @@ import { Record } from '../record/record.entity';
 
 @Entity('meetings')
 export class Meeting extends BaseEntity {
-    @OneToOne(() => Prospect, { cascade: true })
-    @JoinColumn([{ name: 'prospect_id', referencedColumnName: 'id' }])
+    //@OneToOne(() => Prospect, { cascade: true })
+    //@JoinColumn([{ name: 'prospect_id', referencedColumnName: 'id' }])
     public prospect: Prospect;
 
     @OneToOne(() => Seller, { cascade: true })
