@@ -1,10 +1,12 @@
 import {
     BaseEntity,
     Column,
+    CreateDateColumn,
     Entity,
     JoinColumn,
     ManyToOne,
     PrimaryGeneratedColumn,
+    UpdateDateColumn,
 } from 'typeorm';
 import { Company } from '../company/company.entity';
 
@@ -41,4 +43,10 @@ export class Prospect extends BaseEntity {
         nullable: false,
     })
     phoneNumber: string;
+
+    @CreateDateColumn({ name: 'created_at' })
+    public createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    public updatedAt: Date;
 }

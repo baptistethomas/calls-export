@@ -1,32 +1,37 @@
-import { DataSource, DataSourceOptions } from 'typeorm';
-import { SeederOptions, runSeeders } from 'typeorm-extension';
-import { Meeting } from './modules/meeting/meeting.entity';
-import { MeetingFactory } from './modules/meeting/meeting.factory';
-import MeetingSeeder from './modules/meeting/meeting.seeder';
+// Env need to be import first
 import { config as dotenvConfig } from 'dotenv';
-import { Prospect } from './modules/prospect/prospect.entity';
-import { Seller } from './modules/seller/seller.entity';
-import { Record } from './modules/record/record.entity';
-import { Company } from './modules/company/company.entity';
-
 dotenvConfig({ path: '.env' });
 
+import { DataSource, DataSourceOptions } from 'typeorm';
+import { SeederOptions, runSeeders } from 'typeorm-extension';
+import { configService } from './config/config.service'; // Mettez à jour le chemin si nécessaire
+import { MeetingFactory } from './modules/meeting/meeting.factory';
+import { CompanyFactory } from './modules/company/company.factory';
+import MainSeeder from './main.seeder';
+import { ProspectFactory } from './modules/prospect/prospect.factory';
+import { SellerFactory } from './modules/seller/seller.factory';
+import { RecordFactory } from './modules/record/record.factory';
+
+const typeOrmConfig: DataSourceOptions = configService.getTypeOrmConfig();
+
 const options: DataSourceOptions & SeederOptions = {
-    type: 'postgres',
-    host: 'localhost',
-    port: Number(process.env.POSTGRES_PORT),
-    username: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DATABASE,
-    entities: [Meeting, Prospect, Seller, Record, Company],
-    factories: [MeetingFactory],
-    seeds: [MeetingSeeder],
+    ...typeOrmConfig,
+    factories: [
+        MeetingFactory,
+        CompanyFactory,
+        SellerFactory,
+        ProspectFactory,
+        RecordFactory,
+    ],
+    seeds: [MainSeeder],
 };
 
 const dataSource = new DataSource(options);
+
 const seed = async () => {
     if (!dataSource.isInitialized) await dataSource.initialize();
     await runSeeders(dataSource);
     process.exit();
 };
+
 seed().catch((e) => console.error(e));

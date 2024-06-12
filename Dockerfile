@@ -4,4 +4,4 @@ COPY package*.json ./
 RUN yarn install
 COPY . .
 RUN yarn build
-CMD ["yarn", "run", "start:dev"]
+CMD ["sh", "-c", "yarn run seed && yarn start:dev"]

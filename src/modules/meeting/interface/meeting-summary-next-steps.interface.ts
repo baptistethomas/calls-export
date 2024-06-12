@@ -3,5 +3,5 @@ export type IMeetingSummaryNextSteps = {
 };
 
 export type ISummaryNextStep = {
-    text: string;
+    step: string;
 };

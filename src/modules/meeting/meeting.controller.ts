@@ -13,8 +13,8 @@ import { ListMeetingSellerDto } from './dto/list-meeting-seller.dto';
 import { ListMeetingCompanyDto } from './dto/list-meeting-company.dto';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Meetings')
-@Controller('meetings')
+@ApiTags('Meeting')
+@Controller('meeting')
 export class MeetingController {
     constructor(private readonly meetingService: MeetingService) {}
 

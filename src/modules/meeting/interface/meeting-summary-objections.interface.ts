@@ -3,5 +3,5 @@ export type IMeetingSummaryObjections = {
 };
 
 export type ISummaryObjection = {
-    text: string;
+    objection: string;
 };
